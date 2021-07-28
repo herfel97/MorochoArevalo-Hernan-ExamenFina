@@ -4,17 +4,15 @@
    xsi:schemaLocation="
         http://xmlns.jcp.org/xml/ns/persistence
         http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
-   <persistence-unit name="jpa" transaction-type="RESOURCE_LOCAL">
-      <jta-data-source>java:comp/DefaultDataSource</jta-data-source>
-      
+   <persistence-unit name="ERP" transaction-type="JTA">
+      <jta-data-source>jdbc/__web</jta-data-source> 
+      <class>ec.edu.ups.MorochoArevalo_Hernan_Exame.models.Cliente</class>
+      <class>ec.edu.ups.MorochoArevalo_Hernan_Exame.models.Reserva</class>
+      <class>ec.edu.ups.MorochoArevalo_Hernan_Exame.models.Restaurante</class>
+      <exclude-unlisted-classes>true</exclude-unlisted-classes>
       <properties>
-         <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
-         
-         <property name="javax.persistence.schema-generation.create-source" value="metadata"/>
-         <property name="javax.persistence.schema-generation.drop-source" value="metadata"/>
-
-         <!-- Properties for Hibernate -->
-         <property name="hibernate.show_sql" value="true" />
+         <property name="javax.persistence.schema-generation.database.action" value="none"/>
       </properties>
    </persistence-unit>
+   
 </persistence>

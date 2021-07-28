@@ -1,17 +1,23 @@
 package ec.edu.ups.MorochoArevalo_Hernan_Exame.models;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 public class Cliente {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+	
 	private String nombre;
 	private String cedula;
 	private String correo;
 	private String telefono;
+	
 	public int getId() {
 		return id;
 	}

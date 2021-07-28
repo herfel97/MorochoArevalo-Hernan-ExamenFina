@@ -3,8 +3,12 @@ package ec.edu.ups.MorochoArevalo_Hernan_Exame.ejb;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 public abstract class AbstractFacade<T> {
+	
+	@PersistenceContext(unitName = "ERP")
+	private EntityManager em;
 
 	private Class<T> entityClass;
 
@@ -14,9 +18,9 @@ public abstract class AbstractFacade<T> {
 
 	protected abstract EntityManager getEntityManager();
 
-	public void create(T entity) {
-		System.out.println("Metodo Crear Entidad..." + entity.toString());
+	public boolean create(T entity) {
 		getEntityManager().persist(entity);
+		return true;
 	}
 
 	public void edit(T entity) {
@@ -32,9 +36,8 @@ public abstract class AbstractFacade<T> {
 	}
 
 	public List<T> findAll() {
-		javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-		cq.select(cq.from(entityClass));
-		return getEntityManager().createQuery(cq).getResultList();
+		return null;
+		
 	}
 
 	public List<T> findRange(int[] range) {

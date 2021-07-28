@@ -1,17 +1,28 @@
 package ec.edu.ups.MorochoArevalo_Hernan_Exame.models;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Restaurante {
-	@Id
+	@Id	
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
 	private String nombre;
 	private String direccion;
 	private String telefono;
 	private int aforo;
+	
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getNombre() {
 		return nombre;
 	}
@@ -36,5 +47,12 @@ public class Restaurante {
 	public void setAforo(int aforo) {
 		this.aforo = aforo;
 	}
+	@Override
+	public String toString() {
+		return "Restaurante [id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono
+				+ ", aforo=" + aforo + "]";
+	}
+	
+	
 	
 }
