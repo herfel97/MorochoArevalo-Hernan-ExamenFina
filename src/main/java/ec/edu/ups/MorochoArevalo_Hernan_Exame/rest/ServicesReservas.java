@@ -58,6 +58,7 @@ public class ServicesReservas {
 		reserv.setFecha(date1);
 		reserv.setHora(hora);
 		
+		
 		ejbReserva.create(reserv);		
 		
 		RespuestaJSON res = new RespuestaJSON();
@@ -78,7 +79,9 @@ public class ServicesReservas {
 		List<Reserva> lista = ejbReserva.listarReservas();
 		List<ReservaJSON> lista2 = new ArrayList<ReservaJSON>();
 		
-		
+		for (int i = 0; i < lista.size(); i++) {
+			System.out.println(lista.get(i).toString());
+		}
 		
 		for (int i = 0; i < lista.size(); i++) {
 			ReservaJSON resJson = new ReservaJSON();
@@ -86,10 +89,16 @@ public class ServicesReservas {
 			resJson.setAsistentes(lista.get(i).getAsistentes());
 			resJson.setCliente(lista.get(i).getCliente().getNombre());
 			resJson.setRestaurante(lista.get(i).getRestaurante().getNombre());
-			resJson.setFecha(lista.get(i).getFecha().toString());
+			
+			String pattern = "yyyy-MM-dd";
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+			String date = simpleDateFormat.format(lista.get(i).getFecha());
+			
+			
+			resJson.setFecha(date);
 			resJson.setHora(lista.get(i).getHora() );
 			lista2.add(resJson);
-			System.out.println("numero "+i);
 		}
 		
 		Jsonb jsonb = JsonbBuilder.create();
@@ -115,10 +124,14 @@ public class ServicesReservas {
 			resJson.setAsistentes(lista.get(i).getAsistentes());
 			resJson.setCliente(lista.get(i).getCliente().getNombre());
 			resJson.setRestaurante(lista.get(i).getRestaurante().getNombre());
-			resJson.setFecha(lista.get(i).getFecha().toString());
+			String pattern = "yyyy-MM-dd";
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+			String date = simpleDateFormat.format(lista.get(i).getFecha());
+
+			resJson.setFecha(date);
 			resJson.setHora(lista.get(i).getHora() );
 			lista2.add(resJson);
-			System.out.println("numero "+i);
 		}
 		
 		Jsonb jsonb = JsonbBuilder.create();
@@ -127,6 +140,40 @@ public class ServicesReservas {
 				.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
 				.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
 	}
+	
+	@GET
+	@Path("/listar/{restaurante}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response listaReservasNombre( @PathParam("restaurante") String nombreRestaurant ) {
+
+		List<Reserva> lista = ejbReserva.listarReservasPorRestaurante(nombreRestaurant);
+		List<ReservaJSON> lista2 = new ArrayList<ReservaJSON>();
+		
+		for (int i = 0; i < lista.size(); i++) {
+			ReservaJSON resJson = new ReservaJSON();
+			resJson.setId(lista.get(i).getId());
+			resJson.setAsistentes(lista.get(i).getAsistentes());
+			resJson.setCliente(lista.get(i).getCliente().getNombre());
+			resJson.setRestaurante(lista.get(i).getRestaurante().getNombre());
+			String pattern = "yyyy-MM-dd";
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+			String date = simpleDateFormat.format(lista.get(i).getFecha());
+			
+			resJson.setFecha(date);
+			resJson.setHora(lista.get(i).getHora() );
+			lista2.add(resJson);
+		}
+		
+		Jsonb jsonb = JsonbBuilder.create();
+
+		return Response.ok(jsonb.toJson(lista2)).header("Access-Control-Allow-Origin", "*")
+				.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+				.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
+	}
+	
+	
+	
 	
 	
 	

@@ -57,7 +57,7 @@ public class ServicesClientes {
 		
 		RespuestaJSON res = new RespuestaJSON();
 		res.setValor("ok");
-		res.setRespuesta("Cliente registrado: " +x.toString());
+		res.setRespuesta("Cliente registrado con Exito" +x.getNombre());
 		Jsonb json = JsonbBuilder.create();
 		ejbcliente.create(x);
 		return Response.ok(json.toJson(res)).header("Access-Control-Allow-Origin", "*")
@@ -79,7 +79,6 @@ public class ServicesClientes {
 		return Response.ok(json.toJson(x)).header("Access-Control-Allow-Origin", "*")
 				.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
 				.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();	
-	}
-	
+	}	
 
 }

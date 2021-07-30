@@ -63,22 +63,21 @@ public class ServicesRestaurant {
 				.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
 				.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
 	}
-
 	
 	@GET
 	@Path("/buscar/{nombre}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response buscarResta(@PathParam("nombre") String nombre) {
-		
-		Restaurante x = ejbRestaurant.buscarPorNombre(nombre);
-		
-		Jsonb json = JsonbBuilder.create();
-		
-		if(x==null) {
-			return Response.status(404).build(); 
-		}	
-		return Response.ok(json.toJson(x)).header("Access-Control-Allow-Origin", "*")
+	public Response buscarRestaurantes(@PathParam("nombre") String nombre) {
+
+		Restaurante res = ejbRestaurant.buscarPorNombre(nombre);
+		Jsonb jsonb = JsonbBuilder.create();
+
+		return Response.ok(jsonb.toJson(res)).header("Access-Control-Allow-Origin", "*")
 				.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-				.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();	
+				.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
 	}
+	
+	
+	
+
 }

@@ -1,5 +1,7 @@
 package ec.edu.ups.MorochoArevalo_Hernan_Exame.models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +19,8 @@ public class Cliente {
 	private String cedula;
 	private String correo;
 	private String telefono;
+	
+	private List<Reserva> listaReservas;
 	
 	public int getId() {
 		return id;
@@ -48,6 +52,14 @@ public class Cliente {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
+
+	public void setListaReservas(List<Reserva> listaReservas) {
+		this.listaReservas = listaReservas;
+	}
 	
-	
+	@Override
+	public String toString() {
+		return "Cliente [id=" + id + ", nombre=" + nombre + ", cedula=" + cedula + ", correo=" + correo + ", telefono="
+				+ telefono + "]";
+	}
 }

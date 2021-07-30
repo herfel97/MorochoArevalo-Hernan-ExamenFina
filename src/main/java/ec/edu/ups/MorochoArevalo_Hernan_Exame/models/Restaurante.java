@@ -1,5 +1,7 @@
 package ec.edu.ups.MorochoArevalo_Hernan_Exame.models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +17,8 @@ public class Restaurante {
 	private String direccion;
 	private String telefono;
 	private int aforo;
+	
+	private List<Reserva> listaReservas;
 	
 	
 	public int getId() {
@@ -47,11 +51,21 @@ public class Restaurante {
 	public void setAforo(int aforo) {
 		this.aforo = aforo;
 	}
+	
+	
+	public List<Reserva> getListaReservas() {
+		return listaReservas;
+	}
+	public void setListaReservas(List<Reserva> listaReservas) {
+		this.listaReservas = listaReservas;
+	}
 	@Override
 	public String toString() {
 		return "Restaurante [id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + ", telefono=" + telefono
 				+ ", aforo=" + aforo + "]";
 	}
+	
+	
 	
 	
 	
